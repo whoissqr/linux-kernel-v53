@@ -624,7 +624,7 @@ endif # KBUILD_EXTMOD
 # command line.
 # This allow a user to issue only 'make' to build a kernel including modules
 # Defaults to vmlinux, but the arch makefile usually adds further targets
-# all: vmlinux
+all: vmlinux
 
 CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage \
 	$(call cc-option,-fno-tree-loop-im) \
