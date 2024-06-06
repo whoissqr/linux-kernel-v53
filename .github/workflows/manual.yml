@@ -33,9 +33,12 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+        
+    - name: Build the code
+      run: |
+         apt update;apt upgrade -y;apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+         make clean all -j 16'
+      shell: bash
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
