@@ -36,8 +36,10 @@ jobs:
         
     - name: Build the code
       run: |
-         sudo apt update;sudo apt upgrade -y;sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
-         make clean all -j 16'
+         sudo apt update
+         sudo apt upgrade -y
+         sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+         make clean all
       shell: bash
 
     - name: Perform CodeQL Analysis
