@@ -32,27 +32,12 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-
-    - name: Free Disk Space (Ubuntu)
-      uses: jlumbroso/free-disk-space@main
-      with:
-        # this might remove tools that are actually needed,
-        # if set to "true" but frees about 6 GB
-        tool-cache: false
-        # all of these default to true, but feel free to set to
-        # "false" if necessary for your workflow
-        android: true
-        dotnet: true
-        haskell: true
-        large-packages: true
-        docker-images: true
-        swap-storage: true
-        
+       
     - name: Build the code
       run: |
-         sudo apt update
-         sudo apt upgrade -y
-         sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+         apt update
+         apt upgrade -y
+         apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
          echo `nproc`
          make clean all -j `nproc`
       shell: bash
