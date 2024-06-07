@@ -54,8 +54,6 @@ jobs:
          sudo apt update
          sudo apt upgrade -y
          sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
-         sudo rm -rf /var/lib/apt/lists/*
-         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
          make clean all
       shell: bash
 
