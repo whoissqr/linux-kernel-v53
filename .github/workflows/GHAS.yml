@@ -52,6 +52,8 @@ jobs:
          sudo apt update
          sudo apt upgrade -y
          sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+         sudo rm -rf "/usr/local/share/boost"
+         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
          echo `nproc`
          make clean all -j `nproc`
       shell: bash
