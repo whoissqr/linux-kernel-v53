@@ -10,6 +10,9 @@ jobs:
   analyze:
     name: Analyze
     runs-on: self-hosted
+    container:
+      # Runner docker image
+      image: ubuntu-20.04
     permissions:
       actions: read
       contents: read
