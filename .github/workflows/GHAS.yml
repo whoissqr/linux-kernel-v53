@@ -55,7 +55,7 @@ jobs:
          sudo apt upgrade -y
          sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
          echo `nproc`
-         make clean vmlinux -j `nproc`
+         make clean all -j `nproc`
       shell: bash
 
     - name: Perform CodeQL Analysis
