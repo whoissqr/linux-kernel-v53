@@ -1,18 +1,12 @@
 name: CodeQL
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-    
+  
 jobs:
   analyze:
     name: Analyze
-    runs-on: self-hosted
-    container:
-      # Runner docker image
-      image:  ubuntu:20.04
+    runs-on: ubuntu-20.04
+
     permissions:
       actions: read
       contents: read
@@ -21,29 +15,42 @@ jobs:
     strategy:
       matrix:
         language: [ 'cpp' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
-        # You can include multiple languages in the matrix.
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      
-    - name: Install dependency
-      run: |
-         apt update
-         apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
-      shell: bash
 
-    - name: Build the code
-      run: |
-         echo `nproc`
-         make clean all -j `nproc`
-      shell: bash
-      
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        
+
+    - name: Free Disk Space (Ubuntu)
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: false
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
+    - name: Install dependencies
+      run: |
+         sudo apt update
+         sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+      shell: bash
+      
+    - name: Build the code
+      run: |
+         echo `nproc` "cores detected on runner."
+         make clean vmlinux -j `nproc`
+      shell: bash
+
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
