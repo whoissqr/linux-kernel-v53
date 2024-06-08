@@ -35,7 +35,6 @@ jobs:
        
     - name: Install dependency
       run: |
-         apt upgrade -y
          apt update
          apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
       shell: bash
