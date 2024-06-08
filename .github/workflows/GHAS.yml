@@ -12,7 +12,7 @@ jobs:
     runs-on: self-hosted
     container:
       # Runner docker image
-      image: nektos/act-environments-ubuntu:18.04
+      image:  ubuntu:20.04
     permissions:
       actions: read
       contents: read
@@ -33,14 +33,18 @@ jobs:
       with:
         languages: ${{ matrix.language }}
        
+    - name: Install dependency
+      run: |
+         apt upgrade -y
+         apt update
+         apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
+      shell: bash
+
     - name: Build the code
       run: |
-         apt update
-         apt upgrade -y
-         apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev bc -y
          echo `nproc`
          make clean all -j `nproc`
       shell: bash
-
+      
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
