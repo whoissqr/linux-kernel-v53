@@ -27,12 +27,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-       
+      
     - name: Install dependency
       run: |
          apt update
@@ -45,5 +40,10 @@ jobs:
          make clean all -j `nproc`
       shell: bash
       
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
