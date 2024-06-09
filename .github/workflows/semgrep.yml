@@ -6,6 +6,7 @@ jobs:
   semgrep:
     name: semgrep/ci
     runs-on: self-hosted
+    timeout-minutes: 1200
     container:
       image: returntocorp/semgrep
     env:
@@ -14,3 +15,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: semgrep ci
+        timeout-minutes: 1200
