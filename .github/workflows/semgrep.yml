@@ -15,4 +15,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: semgrep ci --timeout 0
-        timeout-minutes: 1200
+        timeout-minutes: 3600
